@@ -2,4 +2,5 @@
 body.main-background {
     background-image: url("./assets/images/ecg.png");
     background-repeat: repeat-x;
+    background-attachment: fixed;
 }
