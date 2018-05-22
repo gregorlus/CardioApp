@@ -10,13 +10,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 */
 @Pipe({name: 'scyntography'})
 export class ScyntographyPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: string): string {
     switch (value) {
-        case 3:
+        case '3':
         return 'W normie';
-        case 6:
+        case '6':
         return 'Nieodwracalne niedokrwienie';
-        case 7:
+        case '7':
         return 'Odwracalne niedokrwienie';
     }
   }

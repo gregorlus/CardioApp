@@ -9,8 +9,8 @@
                     <div mat-card-image>
                             <img class="d-block mx-auto mb-4" src="http://www.humanillnesses.com/photos/heart-disease-2431.jpg" width="200" alt="">
                     </div>
-                    <mat-card-title>
-                           {{ output.pred*100 | number: '2.2-2'}} %
+                    <mat-card-title class="pl-5">
+                           {{ prediction*100 | number: '2.2-2'}} %
                         </mat-card-title>
                     <mat-card-subtitle>
                             Na podstawie wprowadzonych danych obliczane jest prawdopodobieństwo wystąpienia choroby serca.
@@ -29,7 +29,7 @@
                               <tr><td>Nachylenie: </td><td>{{ attributes.slopeST | slope }}</td></tr>
                               <tr><td>Ilość naczyń: </td><td>{{ attributes.ca }}</td></tr>
                               <tr><td>Ekg: </td><td>{{ attributes.ecg | ecg }}</td></tr>
-                              <tr><td>Scyntografia: </td><td>{{ attributes.thal }}</td></tr>
+                              <tr><td>Scyntografia: </td><td>{{ attributes.thal | scyntography }}</td></tr>
                             </table>
                           </mat-card-content>
                 </mat-card>
@@ -83,10 +83,10 @@
                             <h6 class="text-secondary"><strong>Nachylenie segmentu ST podczas wysiłku</strong></h6>
                             <div class="mb-3 ml-5">
                                 <div class="row">
-                                    <mat-radio-group [(ngModel)]='attributes.slopeST' name='slopeST' (change)='performPrediction()'>
-                                        <mat-radio-button value='1'>W górę</mat-radio-button>
-                                        <mat-radio-button value='2'>Płaskie</mat-radio-button>
-                                        <mat-radio-button value='3'>W dół</mat-radio-button>
+                                    <mat-radio-group [(ngModel)]=attributes.slopeST name='slopeST' (change)='performPrediction()'>
+                                        <mat-radio-button value=1>W górę</mat-radio-button>
+                                        <mat-radio-button value=2>Płaskie</mat-radio-button>
+                                        <mat-radio-button value=3>W dół</mat-radio-button>
                                     </mat-radio-group>
                                 </div>
                             </div>

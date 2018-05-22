@@ -10,13 +10,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 */
 @Pipe({name: 'slope'})
 export class SlopePipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: string): string {
     switch (value) {
-        case 1:
+        case '1':
         return 'W górę';
-        case 2:
+        case '2':
         return 'Płaskie';
-        case 3:
+        case '3':
         return 'W dół';
     }
   }

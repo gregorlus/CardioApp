@@ -13,7 +13,7 @@ import { AttributesMappingService } from '../attributesMapper.service';
 })
 
 export class PersonAttributesComponent implements OnInit {
-    attributes: IAttributesModel = {} as any;
+    attributes: IAttributesModel;
     prediction: number;
     output = {} as any;
     erroMessage: string;
@@ -22,34 +22,47 @@ export class PersonAttributesComponent implements OnInit {
 
     ngOnInit() {
         this.initAttributes();
+        this.performPrediction();
     }
 
     performPrediction() {
         const apiInput = this._mapper.map(this.attributes);
         this._apiClientService.getPrediction(apiInput)
             .subscribe(
-                prediction => this.output = prediction,
+                prediction => {
+                    this.output = prediction;
+                    this.setPrediction();
+                },
                 error => this.erroMessage = <any>error
             );
     }
 
-    showPrediction() {
-        return +this.output.pred;
+    setPrediction() {
+        console.log(this.output.pred);
+        let prediction = this.output.pred;
+        prediction = prediction.replace('[[', '');
+        prediction = prediction.replace(']]', '');
+
+        console.log(prediction);
+
+        this.prediction = +prediction;
     }
 
     initAttributes() {
-        this.attributes.age = 20;
-        this.attributes.gender = 0;
-        this.attributes.pressure = 120;
-        this.attributes.heartRate = 75;
-        this.attributes.cholesterol = 100;
-        this.attributes.sugar = false;
-        this.attributes.exercisePain = false;
-        this.attributes.slopeST = 2;
-        this.attributes.oldpeak = 2;
-        this.attributes.painType = 4;
-        this.attributes.ca = 0;
-        this.attributes.ecg = 0;
-        this.attributes.thal = 3;
+        this.attributes = {
+            'age': 20,
+            'gender': 0,
+            'pressure': 120,
+            'heartRate': 75,
+            'cholesterol': 100,
+            'sugar': false,
+            'exercisePain': false,
+            'slopeST': 1,
+            'oldpeak': 2,
+            'painType': 4,
+            'ca': 0,
+            'ecg': 0,
+            'thal': 3
+        };
     }
 }

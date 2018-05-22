@@ -10,15 +10,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 */
 @Pipe({name: 'painType'})
 export class PainTypePipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: string): string {
     switch (value) {
-        case 1:
+        case '1':
         return 'Dławica piersiowa stabilna';
-        case 2:
+        case '2':
         return 'Dławica piersiowa niestabilna';
-        case 3:
+        case '3':
         return 'Ból inny niż dławica piersiowa';
-        case 4:
+        case '4':
         return 'Brak';
     }
   }
