@@ -2,136 +2,132 @@
         
         <div class="row">
             <div class="col-md-4 order-md-2">
-                <div class="py-3 text-center">
-                    <img class="d-block mx-auto mb-4" src="http://www.humanillnesses.com/photos/heart-disease-2431.jpg" width="200" alt="">
-                    <h2>%</h2>
-                    <p class="lead">Na podstawie wprowadzonych danych obliczane jest prawdopodobieństwo wystąpienia choroby serca.</p>
-                    <table>
-                      <tr><td>Płeć: </td><td>{{ gender | uppercase}}</td></tr>
-                      <tr><td>Wiek: </td><td>{{ age }}</td></tr>
-                      <tr><td>Ciśnienie: </td><td>{{ pressure }}</td></tr>
-                      <tr><td>Cholesterol: </td><td>{{ cholesterol }}</td></tr>
-                      <tr><td>Tętno: </td><td>{{ heartRate }}</td></tr>
-                      <tr><td>Cukier: </td><td>{{ sugar }}</td></tr>
-                      <tr><td>Ból po wysiłku: </td><td>{{ exercisePain }}</td></tr>
-                      <tr><td>Typ bólu: </td><td>{{ painType }}</td></tr>
-                      <tr><td>Nachylenie: </td><td>{{ slopeST }}</td></tr>
-                      <tr><td>Ekg: </td><td>{{ ecg }}</td></tr>
-                    </table>
-                  </div>
+                <mat-card>
+                    <mat-card-header>
+                         <p></p>
+                    </mat-card-header>
+                    <div mat-card-image>
+                            <img class="d-block mx-auto mb-4" src="http://www.humanillnesses.com/photos/heart-disease-2431.jpg" width="200" alt="">
+                    </div>
+                    <mat-card-title>
+                           {{ output.pred*100 | number: '2.2-2'}} %
+                        </mat-card-title>
+                    <mat-card-subtitle>
+                            Na podstawie wprowadzonych danych obliczane jest prawdopodobieństwo wystąpienia choroby serca.
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                            <table>
+                              <tr><td>Płeć: </td><td>{{ attributes.gender | gender }}</td></tr>
+                              <tr><td>Wiek: </td><td>{{ attributes.age }}</td></tr>
+                              <tr><td>Ciśnienie: </td><td>{{ attributes.pressure }}</td></tr>
+                              <tr><td>Tętno: </td><td>{{ attributes.heartRate }}</td></tr>
+                              <tr><td>Cholesterol: </td><td>{{ attributes.cholesterol }}</td></tr>
+                              <tr><td>Cukier: </td><td>{{ attributes.sugar | sugar }}</td></tr>
+                              <tr><td>Ból po wysiłku: </td><td>{{ attributes.exercisePain | exercisePain}}</td></tr>
+                              <tr><td>Obniżenie ST: </td><td>{{ attributes.oldpeak }}</td></tr>
+                              <tr><td>Typ bólu: </td><td>{{ attributes.painType | painType }}</td></tr>
+                              <tr><td>Nachylenie: </td><td>{{ attributes.slopeST | slope }}</td></tr>
+                              <tr><td>Ilość naczyń: </td><td>{{ attributes.ca }}</td></tr>
+                              <tr><td>Ekg: </td><td>{{ attributes.ecg | ecg }}</td></tr>
+                              <tr><td>Scyntografia: </td><td>{{ attributes.thal }}</td></tr>
+                            </table>
+                          </mat-card-content>
+                </mat-card>
             </div>
           <div class="col-md-8 order-md-1">
-            <h4 class="mb-3 text-primary">Dane</h4>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)=toggleForm()>
-                {{ showForm ? 'Ukryj' : 'Pokaz'}} formularz
-              </button>
-            <form class="needs-validation" novalidate *ngIf='showForm'>
-                <div class="mb-3">
-                  <label class = "mdl-radio mdl-js-radio" for = "option1">
-                    <input type = "radio"  [(ngModel)]='gender' value='Mężczyzna' id = "option1" name = "gender" class = "mdl-radio__button" checked>
-                    <span class = "mdl-radio__label">Mężczyzna</span>
-                  </label>
-                  <label class = "mdl-radio mdl-js-radio" for = "option2">
-                    <input type = "radio" [(ngModel)]='gender' value='Kobieta' id = "option2" name = "gender" class = "mdl-radio__button">
-                    <span class = "mdl-radio__label">Kobieta</span>
-                  </label>
-                </div>
-              <div class="mb-3">
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <input class="mdl-textfield__input" [(ngModel)]='age' name="gender" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="field1">
-                      <label class="mdl-textfield__label" for="sample4">Wiek...</label>
-                      <span class="mdl-textfield__error">Proszę podać liczbę.</span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" [(ngModel)]='pressure' name="pressure" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="field2">
-                        <label class="mdl-textfield__label" for="sample4">Spoczynkowe ciśnienie krwi... (mm Hg)</label>
-                        <span class="mdl-textfield__error">Proszę podać liczbę.</span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" [(ngModel)]='cholesterol' name="cholesterol" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="field3">
-                        <label class="mdl-textfield__label" for="sample4">Poziom cholesterolu... (mg/dl)</label>
-                        <span class="mdl-textfield__error">Proszę podać liczbę.</span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" [(ngModel)]='heartRate' name="heartRate" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="field4">
-                        <label class="mdl-textfield__label" for="sample4">Maksymalne uzyskane tętno...</label>
-                        <span class="mdl-textfield__error">Proszę podać liczbę.</span>
-                    </div>
-                    <!-- ST depression induced by exercise relative to rest
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-                        <label class="mdl-textfield__label" for="sample4">oldpeak </label>
-                        <span class="mdl-textfield__error">Proszę podać liczbę.</span>
-                    </div> -->
-              </div>
-            <div class="mb-3 ml-5">
-                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" for = "switch-1">
-                <input type = "checkbox" id = "switch-1" class = "mdl-switch__input">
-                <span class="mdl-switch__label">Podwyższony poziom cukru (powyżej 120mg/dl)</span>
-                </label>
-                <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" for = "switch-2">
-                <input type = "checkbox" id = "switch-2" class = "mdl-switch__input">
-                <span class="mdl-switch__label">Ból w klatce piersiowej wywoływany przez wysiłek fizyczny</span>
-                </label>
-              </div>
-              <h6 class="text-secondary"><strong>Ból w klatce piersiowej</strong></h6>
-              <div class="mb-3 ml-5">
-                <div class="row">
-                    <label class = "mdl-radio mdl-js-radio ml-3" for = "pain-option1">
-                        <input type = "radio" id = "pain-option1" name = "painType" class = "mdl-radio__button">
-                        <span class = "mdl-radio__label">Dławica piersiowa stabilna</span>
-                     </label>
-                     <label class = "mdl-radio mdl-js-radio ml-3" for = "pain-option2">
-                        <input type = "radio" id = "pain-option2" name = "painType" class = "mdl-radio__button">
-                        <span class = "mdl-radio__label">Dławica piersiowa niestabilna</span>
-                     </label>
-                     <label class = "mdl-radio mdl-js-radio ml-3" for = "pain-option3">
-                        <input type = "radio" id = "pain-option3" name = "painType" class = "mdl-radio__button">
-                        <span class = "mdl-radio__label">Ból inny niż dławica piersiowa</span>
-                     </label>
-                     <label class = "mdl-radio mdl-js-radio ml-3" for = "pain-option4">
-                         <input type = "radio" id = "pain-option4" name = "painType" class = "mdl-radio__button" checked>
-                         <span class = "mdl-radio__label">Brak</span>
-                      </label>
-                </div>
-              </div>
-              <h6 class="text-secondary"><strong>Nachylenie segmentu ST podczas ćwiczeń</strong></h6>
-              <div class="mb-3 ml-5">
-                  <div class="row">
-                      <label class = "mdl-radio mdl-js-radio ml-3" for = "slope-option1">
-                          <input type = "radio" id = "slope-option1" name = "slope" class = "mdl-radio__button" checked>
-                          <span class = "mdl-radio__label">W górę</span>
-                       </label>
-                       <label class = "mdl-radio mdl-js-radio ml-3" for = "slope-option2">
-                          <input type = "radio" id = "slope-option2" name = "slope" class = "mdl-radio__button">
-                          <span class = "mdl-radio__label">Płaskie</span>
-                       </label>
-                       <label class = "mdl-radio mdl-js-radio ml-3" for = "slope-option3">
-                          <input type = "radio" id = "slope-option3" name = "slope" class = "mdl-radio__button">
-                          <span class = "mdl-radio__label">W dół</span>
-                       </label>
-                  </div>
-                </div>
-              <h6 class="text-secondary"><strong>Wyniki EKG</strong></h6>
-              <div class="mb-3 ml-5">
-                  <div class="row">
-                      <label class = "mdl-radio mdl-js-radio ml-3" for = "ekg-option1">
-                          <input type = "radio" id = "ekg-option1" name = "ekg" class = "mdl-radio__button" checked>
-                          <span class = "mdl-radio__label">W normie</span>
-                       </label>
-                       <label class = "mdl-radio mdl-js-radio ml-3" for = "ekg-option2">
-                          <input type = "radio" id = "ekg-option2" name = "ekg" class = "mdl-radio__button">
-                          <span class = "mdl-radio__label">Nieprawidłowość fal ST-T</span>
-                       </label>
-                       <label class = "mdl-radio mdl-js-radio ml-3" for = "ekg-option3">
-                          <input type = "radio" id = "ekg-option3" name = "ekg" class = "mdl-radio__button">
-                          <span class = "mdl-radio__label">Wykryte prawdopodobieństwo lub wystąpienie przerostu lewej komory według kryteriów Estesa</span>
-                       </label>
-                  </div>
-                </div>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mb-3 w-100">
-                  Sprawdź
-                </button>
-            </form>
+              <mat-card>
+                  <mat-card-title>
+                        Dane
+                  </mat-card-title>
+                  <mat-card-content>
+                    <form class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <mat-radio-group [(ngModel)]='attributes.gender' name='gender' (change)='performPrediction()'>
+                                    <mat-radio-button value='0'>Kobieta</mat-radio-button>
+                                    <mat-radio-button value='1'>Mężczyzna</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <div class="mb-3">
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]='attributes.age' name='age' placeholder="Wiek..." type='number' (change)='performPrediction()'>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]='attributes.pressure' name='pressure' placeholder="Spoczynkowe ciśnienie krwi... (mm Hg)" type='number' (change)='performPrediction()'>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]='attributes.heartRate' name='heartRate' placeholder="Maksymalne uzyskane tętno..." type='number' (change)='performPrediction()'>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput [(ngModel)]='attributes.cholesterol' name='cholesterol' placeholder="Poziom cholesterolu... (mg/dl)" type='number' (change)='performPrediction()'>
+                                </mat-form-field>
+                            </div>
+                        <div class="mb-3 ml-5">
+                            <mat-slide-toggle [(ngModel)]='attributes.sugar' name='sugar' (change)='performPrediction()'>Podwyższony poziom cukru (powyżej 120mg/dl)</mat-slide-toggle>
+                            <mat-slide-toggle [(ngModel)]='attributes.exercisePain' name='exercisePain' (change)='performPrediction()'>Ból w klatce piersiowej wywoływany przez wysiłek fizyczny</mat-slide-toggle>
+                            </div>
+                            <h6 class="text-secondary"><strong>Obniżenie odcinka ST podczas wysiłku względem spoczynku</strong></h6>
+                            <mat-form-field>
+                                <input matInput [(ngModel)]='attributes.oldpeak' name='oldpeak' placeholder="mm" type='number' (change)='performPrediction()'>
+                            </mat-form-field>
+                            <h6 class="text-secondary"><strong>Ból w klatce piersiowej</strong></h6>
+                            <div class="mb-3 ml-5">
+                            <div class="row">
+                                <mat-radio-group [(ngModel)]='attributes.painType' name='painType' (change)='performPrediction()'>
+                                    <mat-radio-button value='1'>Dławica piersiowa stabilna</mat-radio-button>
+                                    <mat-radio-button value='2'>Dławica piersiowa niestabilna</mat-radio-button>
+                                    <mat-radio-button value='3'>Ból inny niż dławica piersiowa</mat-radio-button>
+                                    <mat-radio-button value='4'>Brak</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            </div>
+                            <h6 class="text-secondary"><strong>Nachylenie segmentu ST podczas wysiłku</strong></h6>
+                            <div class="mb-3 ml-5">
+                                <div class="row">
+                                    <mat-radio-group [(ngModel)]='attributes.slopeST' name='slopeST' (change)='performPrediction()'>
+                                        <mat-radio-button value='1'>W górę</mat-radio-button>
+                                        <mat-radio-button value='2'>Płaskie</mat-radio-button>
+                                        <mat-radio-button value='3'>W dół</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            <h6 class="text-secondary"><strong>Ilość głównych naczyń zabarwionych za pomocą fluoroskopii</strong></h6>
+                            <div class="mb-3 ml-5">
+                            <div class="row">
+                                <mat-radio-group [(ngModel)]='attributes.ca' name='ca' (change)='performPrediction()'>
+                                    <mat-radio-button class="inline" value='0'>0</mat-radio-button>
+                                    <mat-radio-button class="inline" value='1'>1</mat-radio-button>
+                                    <mat-radio-button class="inline" value='2'>2</mat-radio-button>
+                                    <mat-radio-button class="inline" value='3'>3</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            </div>
+                            <h6 class="text-secondary"><strong>Wyniki EKG</strong></h6>
+                            <div class="mb-3 ml-5">
+                                <div class="row">                    
+                                    <mat-radio-group [(ngModel)]='attributes.ecg' name='ecg' (change)='performPrediction()'>
+                                        <mat-radio-button value='0'>W normie</mat-radio-button>
+                                        <mat-radio-button value='1'>Nieprawidłowość fal ST-T</mat-radio-button>
+                                        <mat-radio-button value='2'>Wykryte prawdopodobieństwo lub wystąpienie przerostu lewej komory według kryteriów Estesa</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            <h6 class="text-secondary"><strong>Scyntografia serca</strong></h6>
+                            <div class="mb-3 ml-5">
+                            <div class="row">
+                                <mat-radio-group [(ngModel)]='attributes.thal' name='thal' (change)='performPrediction()'>
+                                    <mat-radio-button value='3'>W normie</mat-radio-button>
+                                    <mat-radio-button value='6'>Nieodwracalne niedokrwienie</mat-radio-button>
+                                    <mat-radio-button value='7'>Odwracalne niedokrwienie</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            </div>
+                        </form>
+                  </mat-card-content>
+                  <mat-card-actions>
+                        <button mat-raised-button color="primary" class="w-100" (click)=performPrediction()>
+                                Sprawdź
+                            </button>
+                  </mat-card-actions>
+              </mat-card>
           </div>
         </div>
